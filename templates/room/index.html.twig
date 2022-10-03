@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room index{% endblock %}
+
+{% block main %}
+    
+    
+    
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            
+        </nav>
+        <!-- Header-->
+        <header class="bg-white py-5">
+            <div class="container px-4 px-lg-5 my-10">
+                <div class="text-center text-dark">
+                    <h1 class="display-4 fw-bolder">COUETTE ET CAFÉ</h1>
+                    <p class="lead fw-normal text-light-50 mb-0">Choisissez votre destination</p>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+        <section class="py-5">
+             <tr>
+        <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+	{%  for room in rooms %}
+        
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="{{ vich_uploader_asset(room, 'imageFile') }}"/>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ room.summary }}</h5>
+                                    <!-- Product superficy-->
+                                    <h5>{{room.superficy}}</h5>
+                                    <!-- Product price-->
+                                    {{room.price}}$
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="rounded-pill btn btn-outline-dark mt-auto" href="{{ path('room_show', {'id': room.id}) }}">Voir</a></div>
+                                
+                                {% if is_granted('ROLE_USER') %}
+   <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="rounded-pill btn btn-outline-dark mt-auto" href="{{ path('room_edit', {'id': room.id}) }}">Éditer</a></div></div>
+{% endif %}
+<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="rounded-pill btn btn-outline-dark mt-auto" href="{{ path('room_mark', {'id': room.id}) }}">Ajouter au panier</a></div></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                   
+           
+        
+	{% endfor %} {# rooms #}
+	
+	 
+	 </tr>
+        </section>
+        
+        {% if is_granted('ROLE_USER') %}
+    <a class="rounded-pill btn btn-outline-dark mt-auto" href="{{ path('room_new') }}">Créer une nouvelle chambre</a>
+{% endif %}
+
+
+
+
+        <!-- Footer-->
+        
+		<div class="row">
+			<div class="col-md-12"><class="py-5 bg-white"/>
+			<div class="container"><p class="m-0 text-center text-white">Bonjour Olivier, Mohammed et Michel</p></div>
+            
+        
+			</div>
+		</div>
+		
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+
+
+
+    
+{% endblock %}

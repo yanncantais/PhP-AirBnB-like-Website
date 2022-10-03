@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Region{% endblock %}
+
+{% block main %}
+    <h1>Region</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ region.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ region.name }}</td>
+            </tr>
+            <tr>
+                <th>Presentation</th>
+                <td>{{ region.presentation }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ region.country }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('region_index') }}">back to list</a>
+
+    <a href="{{ path('region_edit', {'id': region.id}) }}">edit</a>
+
+    {{ include('region/_delete_form.html.twig') }}
+{% dump(region) %}
+
+
+<section class="py-5">
+             <tr>
+        <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-left">
+	
+{% for room in region.rooms %}
+
+   <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ room.summary }}</h5>
+                                    <!-- Product superficy-->
+                                    <h5>{{room.superficy}}</h5>
+                                    <!-- Product price-->
+                                    {{room.price}}$
+                                </div>
+                            </div>
+                             <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('room_show', {'id': room.id}) }}">Show</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('room_edit', {'id': room.id}) }}">Edit</a></div>
+                            </div>
+                        </div>
+                    </div>
+                   
+            
+        
+
+	
+{% endfor %}
+</tr>
+        </section>
+
+{% endblock %}

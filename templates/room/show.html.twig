@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room{% endblock %}
+
+{% block main %}
+    <h1>Room</h1>
+    
+   
+{% set urgents = app.session.get('urgents') %}
+{% dump(urgents) %}
+{% if room.id in urgents %}
+DANS VOTRE PANIER
+{% else %}
+PAS DANS LE PANIER
+{% endif %}
+
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ room.id }}</td>
+            </tr>
+            <tr>
+                <th>Summary</th>
+                <td>{{ room.summary }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ room.description }}</td>
+            </tr>
+            <tr>
+                <th>Capacity</th>
+                <td>{{ room.capacity }}</td>
+            </tr>
+            <tr>
+                <th>Superficy</th>
+                <td>{{ room.superficy }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ room.price }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ room.address }}</td>
+            </tr>
+            <tr>
+    <th>Image</th>
+    <td><img src="{{ vich_uploader_asset(room, 'imageFile') }}"/></td>
+</tr>
+        </tbody>
+    </table>
+    
+    
+
+    <a href="{{ path('room_index') }}">back to list</a>
+    
+    {% if is_granted('ROLE_USER') %}
+    <a href="{{ path('room_edit', {'id': room.id}) }}">edit</a>
+{{ include('room/_delete_form.html.twig') }}
+    {% endif %}
+
+    
+
+    
+{% endblock %}
